@@ -14,6 +14,7 @@ class GameModel:
         self._apple_score = 50
         self._snake = Snake(init_position)
         self._replace_apple()
+        # self.lastApple = self.apple
 
     def start(self):
         self.run = True
@@ -43,8 +44,12 @@ class GameModel:
                 return True
         return False
 
+    lastApple = None
     def _apple_logic(self):
         if self._snake.head == self.apple:
+
+            self.lastApple = self.apple
+
             self._replace_apple()
             self._snake.add_part()
             self.score += self._apple_score

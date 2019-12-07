@@ -6,6 +6,6 @@ from view import GameView
 if __name__ == '__main__':
     model = GameModel(board_size=30)
     view = GameView(model.board_size)
-    controller = UserController(model, view)
-    # controller = AIController(model, view)
+    # controller = UserController(model, view)
+    controller = AIController(model, view, delay=0)
     controller.play()
