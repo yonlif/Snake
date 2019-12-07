@@ -48,10 +48,54 @@ class AIController(BaseController):
     def controller_step(self):
         # self.dumbAsShit()
         self.leftCorner2Apple()
+        # self.shortest2Apple()             # Work in progress
         pass
 
 
+    def checkWall(self):
+
+        if self.game_model.get_snake_copy().direction == "s" and self.game_model.get_snake_copy().head.x > self.game_model.apple.x:
+            self.game_model.set_direction("a")
+        elif self.game_model.get_snake_copy().direction == "s" and self.game_model.get_snake_copy().head.x < self.game_model.apple.x:
+            self.game_model.set_direction("d")
+
+        if self.game_model.get_snake_copy().direction == "a" and self.game_model.get_snake_copy().head.x == 0 and self.game_model.get_snake_copy().head.y != self.game_model.board_size - 1 and self.game_model.get_snake_copy().head.y < self.game_model.apple.y:
+            self.game_model.set_direction("s")
+        elif self.game_model.get_snake_copy().direction == "a" and self.game_model.get_snake_copy().head.x == 0 and self.game_model.get_snake_copy().head.y != self.game_model.board_size - 1 and self.game_model.get_snake_copy().head.y > self.game_model.apple.y:
+            self.game_model.set_direction("w")
+
+        if self.game_model.get_snake_copy().direction == "w" and self.game_model.get_snake_copy().head.x >= self.game_model.apple.x:
+            self.game_model.set_direction("a")
+        elif self.game_model.get_snake_copy().direction == "w" and self.game_model.get_snake_copy().head.x <= self.game_model.apple.x:
+            self.game_model.set_direction("d")
 
 
-# (0, 0)     (29, 0)
-# (0, 29)    (29, 29)
+
+
+
+    firstA = True
+    def shortest2Apple(self):
+        if self.game_model.apple.x > self.game_model.get_snake_copy().head.x and self.firstA:
+            self.game_model.set_direction("w")
+
+        self.checkWall()
+        if self.game_model.get_snake_copy().head.x == self.game_model.apple.x:
+            if self.game_model.get_snake_copy().head.y > self.game_model.apple.y:
+                self.game_model.set_direction("w")
+            elif self.game_model.get_snake_copy().head.y < self.game_model.apple.y:
+                self.game_model.set_direction("s")
+        elif self.game_model.get_snake_copy().head.y == self.game_model.apple.y:
+            if self.game_model.get_snake_copy().head.x > self.game_model.apple.x:
+                self.game_model.set_direction("a")
+            elif self.game_model.get_snake_copy().head.x > self.game_model.apple.x:
+                self.game_model.set_direction("d")
+
+        if self.game_model.apple == self.game_model.get_snake_copy().head:
+            self.checkWall()
+
+
+
+# (0, 0)      (29, 0)
+#
+#
+# (0, 29)     (29, 29)

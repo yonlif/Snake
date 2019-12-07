@@ -56,8 +56,8 @@ class GameModel:
 
     def _replace_apple(self):
         while True:
-            x = random.randint(0, self.board_size)
-            y = random.randint(0, self.board_size)
+            x = random.randint(0, self.board_size - 1)
+            y = random.randint(0, self.board_size - 1)
             try_point = Point(x, y)
             if try_point not in self._snake.body:
                 self.apple = try_point
